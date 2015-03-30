@@ -22,7 +22,7 @@ mod.controller('planController', ['$scope',
 			}
 		}
 		$scope.creerFen("fenetreEditEvnt","fenetreAjoutColonne","fenetreModifHoraire",
-			"fenCategorie","fenExport","fenetreModifSupprColonne","fenImport")
+			"fenCategorie","fenExport","fenetreModifSupprColonne","fenImport","fenetreAjoutCategorie","grillePlanning")
 		$scope.tabFen.push($scope.accueilVisible = new FenetreAvecTransition(true));
 		var formCol=$scope.formCol = {};
 		$scope.largeurGrilleAvecHoraire=1090;
@@ -61,13 +61,16 @@ mod.controller('planController', ['$scope',
 		var fenetreAjoutCategorie = $scope.fenetreAjoutCategorie = new Fenetre(false);
 		
 
-	
+		$scope.afficherAccueil = function(afficher){
+			$scope.accueilVisible.afficher(afficher);
+			$scope.grillePlanning.afficher(!afficher);
+		}
 		
 		/*******************************/
 		/******** Initialisation *******/
 		/*******************************/
 		$scope.creerPlanning = function(mode) {
-			$scope.accueilVisible.afficher(false);
+			$scope.afficherAccueil(false);
 			//ne pas effacer le planning si le mode est le même
 			if (planning && planning.getMode() == mode){
 				return ;
@@ -310,7 +313,7 @@ mod.controller('planController', ['$scope',
 			form.categorie = planning._categories[0];
 			titreCat.val = planning._categories[0].getNom();
 			form.nbCol = 1;
-			fenetreEditEvnt.afficher(true);
+			$scope.fenetreEditEvnt.afficher(true);
 			initHeureEvmt(ligneDeb,ligneDeb+1);	
 			form.col=col;
 		}
@@ -327,7 +330,7 @@ mod.controller('planController', ['$scope',
 			initHeureEvmt(hDeb,hFin,mDeb,mFin);
 			form.titre=evmt.getNom();
 			form.description=evmt.getDescription();
-			fenetreEditEvnt.afficher(true);	
+			$scope.fenetreEditEvnt.afficher(true);	
 			form.col=col;	
 			form.evnmt=evmt;
 			form.categorie = evmt.getCategorie();
