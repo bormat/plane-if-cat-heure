@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+		<title>Planificat'heure</title>
+		<meta 	charset="UTF-8">
+		<link 	rel="stylesheet" type="text/css" href="css/printable.css"> 
+		<link 	rel="stylesheet" type="text/css" href="css/style.css"> 
+		<script type='text/javascript' src="lib/jquery.js"></script>
+		<script> var $$=$</script>
+		<link	rel="stylesheet" type="text/css" href="lib/jquery-ui.min.css">
+		<script	src="lib/ui.js"  data-cover></script>
+		<script src="http://code.angularjs.org/1.2.16/angular.min.js"></script>
+		<script src="js/heritage/bortoHeritage.js"> </script>
+		<script src="js/fastSetterAndGetter.js"></script>
+		<script src="js/ElementGraphique.js"> </script>
+		<script src="js/Planning.js"> </script>
+		<script src="js/Colonne.js"> </script>
+		<script src="js/Donnee.js"> </script>
+		<script src="js/Evenement.js"> </script>
+		<script src="js/Periode.js"> </script>
+		<script src="js/Graphique.js"> </script>
+		<script src="js/Categorie.js"> </script>
+		<script src="js/Page.js"> </script>
+		<script src="js/serialisation.js"> </script>
+		<script src="controller.js"></script>
+  </head>
+  <body>  
+	<div ng-controller="planController" ng-app="planning">
+		<div id="accessToFileForbiden"> Pour chrome autoriser l'accès à vos fichiers via exécuter (Windows + r) et mettre "chrome.exe -allow-file-access-from-files" <br> vous pouvez aussi installer Firefox pour que ça marche direct ou bien metre l'application sur serveur.
+		Pour Internet Explorer il interprète l'application n'importe comment, il faudra fournir 1000 € pour le rendre compatible,
+		mais le rapport complexité/BV étant élevé nous vous le déconseillons.
+		merci de votre compréhension.
+		</div>
+		<div ng-include="'accueil.html'"></div>
+		<div ng-if="!accueilVisible.isAfficher()" id="grillePlanning" ng-include="'grillePlanning.html'"></div>
+		<div class="placer_form" ng-include="'form_ajout_modif_evenement.html'"></div>
+		<div class="placer_form" ng-include="'form_ajout_colonne.html'"> </div>
+		<div class="placer_form" ng-include="'form_modif_suppr_colonne.html'"> </div>
+		<div class="placer_form" ng-include="'form_modif_horaire.html'"> </div>
+		<div class="placer_form" ng-include="'fenCategorie.html'"> </div>
+		<div class="placer_form" ng-include="'form_ajout_categorie.html'"> </div>
+		<div class="placer_form" ng-include="'legende_categorie.html'"> </div>
+		<div class="placer_form"  ng-include="'html/export.html'"> </div>
+		<div  ng-include="'html/import.html'"> </div>
+		<div class="placer_form" ng-include="'changer_police.html'"> </div>
+		<div ng-include="'deleteAccessToFileForbiden.html'"> </div>
+		<style id="changeStylecell"> </style>
+		<style id="changeStylechangeTexte"> </style>
+	</div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+<div class="containerForm" ng-if="legendeCategorie.isAfficher()">
+	<form class="centrer_form" >
+		<div class="legendeCat" ng-repeat="categorie in planning.getCategories()" >
+		<div>
+			<span ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}"> 
+			</span>
+			{{categorie.getNom()}}
+		</div>
+		</div>
+		<button ng-click="legendeCategorie.afficher(false);">Annuler</button>
+	</form>
+	
+</div>

@@ -1,0 +1,43 @@
+﻿<div class="containerForm" ng-if="fenetreEditEvnt.isAfficher()">
+	<form id="editEvnt" class="form_evenement centrer_form" ng-submit="validationFormulaireEvenement()">
+				<table>
+					<tr>
+						<td style="width:100px">Titre:</td>
+						<td><input type="text" ng-model="form.titre" show-focus="fenetreEditEvnt.isAfficher()" required /></td>
+					</tr>
+					<tr>
+						<td style="width:100px">Heure début:</td>
+						<td><input class="inputHeure" type="number" ng-model="form.heureDeb" min="{{horaire.heureDeb}}" max="{{horaire.heureFin - 1}}" />h
+                <input type="number" class="inputHeure" ng-model="form.minuteDeb" min="0" max="59" />m</td>
+					</tr>
+					<tr>
+						<td>Heure fin:</td>
+						<td><input type="number" class="inputHeure" ng-model="form.heureFin" min="{{horaire.heureDeb}}" max="{{horaire.heureFin - 1}}"  />h
+                <input type="number" class="inputHeure" ng-model="form.minuteFin" min="0" max="59" />m<br /></td>
+					</tr>
+					<tr>
+						<td style="vertical-align:top;">Description:</td>
+						<td><textarea ng-model="form.description" maxlength="95" style="width:200px;height:80px;"></textarea></td>
+					</tr>
+					<tr>
+						<td>Evenement commun :</td><td> <input type="number" ng-model="form.nbCol" min="1" max="10" /> </td>
+					</tr>
+					<tr><td></td>
+						<td><span  ng-click="focusCouleur(categorie)" ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
+						</span></td>
+					</tr>
+					<tr><td></td>
+						<td><input type="text" ng-model="titreCat.val" disabled="disabled" /></td>
+					</tr>
+			</table>
+			<br />
+				<div class="form_bouton">
+					<input type="button" value="Coller" ng-click="collerEvenement()" ng-if="evenementCopie" />
+					<input type="button" value="Copier" ng-click="copierEvenement()" />
+					<input type="submit" value="Ajouter"  ng-if="mode == 'ajout'" />
+					<input type="submit" value="Modifier" ng-if="mode != 'ajout'" />
+					<input type="button" value="Supprimer" ng-click="suppEvmt();" ng-if="mode!='ajout'" />
+					<input type="button" value="Annuler"   ng-click="fenetreEditEvnt.afficher(false);" />
+				</div>
+		</form>
+</div>

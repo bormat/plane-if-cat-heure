@@ -1,0 +1,530 @@
+		*{
+				margin:0;
+				padding:0;
+				box-sizing:border-box;
+				-moz-box-sizing:border-box;
+				word-wrap: break-word;
+		}
+			
+		html, body, div[ng-app="planning"]{
+			height:100%;
+			
+		}
+
+			.radio{
+				width:20px !important;
+				height:20px !important;
+				display:inline-block;
+				border:transparent solid 2px;
+			}
+			.radioActive{
+				border-Color:black;
+			}
+			.radioInactive{
+				border-Color:transparent;
+			} 
+			#grillePlanning{
+				position:absolute;
+				z-index:3;
+				padding: 10px;
+			}
+		
+			.col{
+				display:inline-block;
+				float:left;
+				position:relative;
+			}
+		
+
+			.col+.col{
+				margin-left:-1px;
+			}			
+			.cell{
+				border:solid 1px #C2C2C2;
+				padding:5px;
+				height:100%;
+				width:100%;	
+				overflow: hidden;
+				background:#F9F9F9; 				
+		}
+			.cell+.cell{
+				border-top:solid 0px gray;
+			}
+      			
+			.cellHoraire{
+				background:lightblue;
+				border:1px solid black;
+			}
+			.titre{
+				color:white;
+				font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+				font-size:15px;
+				text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+				margin-bottom:10px;
+				text-transform:capitalize;
+			}
+			.tache{
+				top:-100%;
+				border:none;
+				background:transparent;
+				height:auto;
+				overflow: visible;
+				width:100%;
+				height:0%;
+			}
+			.laTache{
+				border:1px rgb(203, 203, 203) solid;	
+				border-radius:15px;
+				padding:0px 10px;
+				background:#ccb800;
+				height:100%;
+				width:100%;
+				overflow: hidden;
+				position:absolute;
+				z-index:99;
+			}
+			
+			
+			.tacheTexte{
+				color:white;
+				text-transform:capitalize;	
+				text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+				height:100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.optionInvisible {
+				margin-left: -9000px;
+				opacity: 0;
+				transition: margin-left 0s ease 1s, opacity 1s linear 0s;
+			}
+			.optionInvisible {
+				float: left;
+			}
+			.optionVisible {
+				float: left;
+			}
+			.optionVisible {
+				transition: margin-left 0s ease 0s, opacity 1.5s linear 0s;
+				margin-top: 0px;
+				margin-left: 0px;
+				opacity: 1;
+			}
+			
+			.colum {
+				position: absolute;
+				z-index: 1;
+				width: 100%;
+				background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.6);
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				text-align: center;
+			}
+
+			h1
+			{
+			text-align: center;
+			color: rgba(255,255,255,0.8);
+			font-family: "MV Boli", Georgia, Serif;
+			font-size:50px;
+			}
+			
+			#accueil{
+				top:0%;
+				bottom:0%;
+				position:absolute;
+				z-index:10;
+				background:url("postit.jpg");
+				background-repeat:no-repeat;
+				background-size: cover;
+				width: 100%;
+				height:100%;
+				text-align: center;
+			}
+			
+			.btnMode{
+				margin-top:10%;
+				margin:2px; /*margin:20%;*/
+				margin-left:50px;
+			}
+			
+			.btnMode:hover{
+				color:rgb(0,199,19);
+			}
+			
+			#slogan{
+			text-decoration:underline;
+			font-family: "MV Boli", Georgia, Serif;
+			font-size: 30px;
+			color: rgb(0,0,0);
+			}
+			
+			#creationPlanning{
+			border: 2px solid gray;
+			}
+			
+			fieldset{
+			position: absolute;
+			width:10%;
+			left:45%;
+			top: 30%
+			}
+
+			.coins{
+				background:black;
+				color:white;
+				text-align:center;
+				font-size:30px;
+				border-left: 1px solid black;
+				border-top:1px solid black;
+				border-bottom:1px solid black;
+			}
+			
+			
+			/* Classe pour centrer*/
+			
+			.placer_form {
+				position: absolute;
+				width: 100%;
+				height:100%;
+				display:table;
+				text-align:center;
+			}
+			
+			.containerForm {
+				z-index:3;
+				position: fixed;
+				width:100%;
+				height:100%;
+				background:rgba(255,255,255,0.5);
+				display:table-cell;
+				vertical-align: middle;
+			}
+			
+			.centrer_form {
+				position: relative;
+				margin: 20% auto;
+				display: inline-block;
+				border-radius:15px;
+				box-shadow:0px 0px 50px #888888;
+				background-color:#DAD8D8;
+				padding: 5px 15px 5px 15px; 
+			}
+			
+			/*Formulaire Categorie*/
+			
+			.containerCategorie {
+				text-align:center;
+			}
+			
+			.containerCategorie .couleurCategorie {
+				display:inline-block;
+			}
+			
+			#ajoutCat:hover {
+				border:black solid 2px;
+			}
+			
+			/*Legende Categorie*/
+			
+			.legendeCat {
+				text-align:left;
+				display: inline-block;
+				margin-left:10px;
+			}
+			
+			.testcat {
+				float:left;
+			}
+			
+			/*Formulaire Evenement */
+			
+			.inputHeure{
+				width:75px;
+			}
+			
+			.form_evenement table {
+				text-align:left;
+			}
+			
+
+			
+			/* Formulaire Colonne */
+			
+			
+			#mode
+			{
+				padding:30px;
+				margin-top:5%;
+				position:absolute;
+				/*top:300px;*/ top:38%;
+				/*left:400px;*/ left:28%;
+				font-family:"Monotype Corsiva",Georgia ,Serif;
+				font-size:50px;
+			}
+			
+			a{
+				text-decoration:none;
+				font-family:"Monotype Corsiva",Georgia ,Serif;
+				font-size:30px;
+				color:rgb(6,145,19);
+			}
+			
+			ol{
+				list-style-type: none;
+				text-decoration:underline;
+			}
+			
+			li{
+				list-style-type: none;
+				text-align:left;
+			}
+			
+			body{
+				background:url(bois.jpg);
+				background-size:cover
+			}
+			
+			#AjoutH{
+			color:rgb(199,140,54);
+			}
+			
+			#AjoutH:hover{
+				cursor:pointer;
+				color:rgb(190,110,0);
+			}
+			
+			.AjoutCol{
+				margin-left:-50px;
+				width:0;
+			}
+			
+			.bigCol + .AjoutCol{
+				margin-left: -55px; 
+			}
+			
+            .AjoutCo{
+				margin-left:50px;
+				background:	#ADD8E6;
+				width:50px;
+          		border:solid 1px #C2C2C2;
+				border:1px solid black;
+			}
+			
+			.imgAjout{
+				position :absolute;
+				height:40px;
+				margin-top: 6px;
+				margin-left: 6px;
+			}
+			
+			.imgAjout:hover{
+				cursor:pointer;
+			}
+			
+			#imgPostMode{
+				position:absolute;
+				/*width:400px;*/ width:155%;
+				/*height:300px;*/ height:130%;
+				z-index:-1;
+				/*left:-60px;*/ left:-22%;
+				/*bottom:-45px;*/ bottom:-20%;
+			}
+
+			
+			#footer {
+				position: absolute;
+				
+				display: inline-block;
+			}
+			
+			#zoneBtn{
+				display:inline-block;
+				position:fixed;
+				background-color:#4077AF;
+				z-index:100;
+				height:45px;
+				width:auto;
+				text-align:center;
+				border-radius:5px;
+				top:0px;
+				right:0px;
+				padding-left:20px;
+				padding-right:20px;
+				border:1px solid black;
+			}
+			
+			#zoneBtn button.info {
+				top:2px;
+				display:inline;
+			}
+			
+			#modeEmploiFont{
+				color:black;
+				font-size:15px;
+				vertical-align:text-bottom;
+			}
+			
+			#modeEmploiFont:hover{
+				color:rgb(0,199,19);
+				text-decoration:underline;
+			}
+			
+			#modeEmploi{
+				position:absolute;
+				/*top: 770px;*/ top:97%;
+				/*left:290px;*/ left:21%;
+				
+			}
+			
+			#nav li{
+				display:inline;
+				margin-right:20px;
+			}
+
+		.A4 ,#tableau,#grillePlanning{
+              width:100%;
+              height: calc(98% - 2px);
+		}
+		#tableau{
+			margin-top:40px;
+		}
+ 
+		.A4{
+			  display:block;
+			  width:290mm;
+			  height:190mm;
+			  margin-bottom:50px;
+		}
+			/* Impression */
+		#footer{
+			position:initial;z-index:10;width:270mm;display:inline-block;
+		}	
+		
+		#ErrorMessage{
+			width:50%;
+		}
+		.containerForm {
+		  z-index: 3;
+		  position: fixed;
+		  width: 100%;
+		  height: 100%;
+		  background: rgba(255,255,255,0.5);
+		  display: table-cell;
+		  vertical-align: middle;
+		}
+
+		.centrer_form {
+		  position: relative;
+		  margin: 20% auto;
+		  display: inline-block;
+		  border-radius: 15px;
+		  box-shadow: 5px 5px 5px #888888;
+		  background-color: #DAD8D8;
+		  padding: 5px 15px 5px 15px;
+		}
+
+		.legendeCat{
+			display : inline-block;
+			margin-left:20px;
+		}
+		
+		.legendeCatToolbar{
+			display: block;
+			margin-top:	5px;
+			margin-left:-20px;
+		}
+		
+	
+		
+		
+		@media print {
+      .AjoutCol{
+          display:none !important;
+			}
+			.A4{
+			  display:block;
+			  width:100%;
+			  height:100%;
+			}
+			body{
+				background:white;
+			}
+			#zoneBtn,#footer{
+			   display:none;
+			}
+			#footer{
+				display:none;
+			}			
+			#tableau{
+				margin-top:0px;
+			}
+			#grillePlanning{
+			  padding: 0px;
+			  padding-top: 0px;
+
+			}
+			
+			.ui-resizable-e, .ui-resizable-handle {
+				display:none !important;
+			}
+			input{
+				display:none;
+			}
+		}
+		
+		/* InfoBulle */
+ 
+			.info{
+				position:relative;
+				z-index:24;
+				color:#000;
+				text-decoration:none
+			}
+ 
+			.info:hover{
+				z-index:25;
+				background-color:#FFF
+			}
+ 
+			.info span{
+				display: none;
+			}
+ 
+			.info:hover span{
+				display:block;
+				position:absolute;
+				top:2em; right:-1em;
+				border:1px solid #000;
+				background-color:#FFF;
+				color:#000;
+				text-align: justify;
+				font-weight:none;
+				padding:5px;
+				border-radius:10px;
+				opacity:0.8;
+			}
+
+			.bordPlanningDroite {
+				color:black;
+				font-weight:bold;
+				text-transform:capitalize;
+				background:lightblue!important;
+				border:1px solid black;
+			}
+			
+			
+			.centre{
+				position:absolute;
+				top:50%;
+				left:50%;
+				transform: translate(-50%, -50%);
+				z-index:10;
+			}
+			.export{
+				width:50%;
+				height:50%;			
+				background:white;
+				overflow: scroll;
+			}

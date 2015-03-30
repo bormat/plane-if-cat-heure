@@ -1,0 +1,40 @@
+<script>
+	var my=[]
+	function tt(){
+		tab=[];
+		var ppp;
+		var Class=function(){};
+		Class.create=function(met){
+			var laClass=function(){
+				tab[this]= Object.create(this)
+				ppp=this;
+			};
+			for ( var i in met){
+				(function(i, met)(laClass.prototype[i]=function(){
+					var oldMy=my;
+					my = tab[this];
+					var res = met[i].apply(this);
+					my=oldMy;
+					return res
+				}))(i,met)
+			}
+			return laClass;
+		}
+		return Class;
+	}
+	var Class=tt();
+	var testeur=Class.create({
+        test:function(){
+            my.test2=5
+        },
+		getTest:function(){
+			return my.test2;
+		},
+		getTest2:function(){
+			return my.getTest()*2;
+		}
+	})
+	var tt = new testeur
+	tt.test();
+	alert(tt.getTest2());    
+</script>

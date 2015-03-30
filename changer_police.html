@@ -1,0 +1,34 @@
+<div class="containerForm" ng-if="changerPoliceEcriture.isAfficher();">
+	<form class="centrer_form" >
+		<table>
+			<tr>
+				<td style="width:100px">Taille de la police:</td>
+				<td><input id="policeTaille" type="number" value="15" min="0"> Px</td>
+			</tr>
+			<tr>
+				<td style="width:100px">Couleur de la police:</td>
+				<td><input id="policeCouleur" type="color"/></td>
+			</tr>
+			<tr>
+				<td style="width:100px">Style de la police :</td>
+				<td>
+					<select data-ng-model="polStyle.value" data-ng-options="v for v in font"></select>
+					</br>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2" align ="left"><u>Séléctionner la section concernée :</u></td>
+			</tr>
+			<tr>
+				<td><input id="rd_int" type="radio" name="section" value="inter" checked>Cellule internes </td>
+				<td><input id="rd_ext" type="radio" name="section" value="exter">Cellule externes </td>
+			</tr>
+			<tr>
+				<td><button ng-click="changerPolice();">appliquer</td>
+				<td><button ng-click="changerPoliceEcriture.afficher(false);">quitter</button></td>
+			</tr>
+			
+		</table>
+	</form>
+</div>
