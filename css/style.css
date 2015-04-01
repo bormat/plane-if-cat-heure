@@ -1,3 +1,10 @@
+			.fen{
+				position:absolute;
+				background:rgba(255,255,255,0.5)
+			}
+			.fen >*{
+				margin:auto;
+			}
 		*{
 				margin:0;
 				padding:0;
@@ -23,15 +30,10 @@
 			.radioInactive{
 				border-Color:transparent;
 			} 
-			#grillePlanning{
-				position:absolute;
-				z-index:3;
-				padding: 10px;
-			}
+		
 		
 			.col{
 				display:inline-block;
-				float:left;
 				position:relative;
 			}
 		
@@ -81,7 +83,6 @@
 				width:100%;
 				overflow: hidden;
 				position:absolute;
-				z-index:99;
 			}
 			
 			
@@ -97,14 +98,7 @@
 				margin-left: -9000px;
 				opacity: 0;
 				transition: margin-left 0s ease 1s, opacity 1s linear 0s;
-			}
-			.optionInvisible {
 				float: left;
-			}
-			.optionVisible {
-				float: left;
-			}
-			.optionVisible {
 				transition: margin-left 0s ease 0s, opacity 1.5s linear 0s;
 				margin-top: 0px;
 				margin-left: 0px;
@@ -204,7 +198,6 @@
 			
 			.centrer_form {
 				position: relative;
-				margin: 20% auto;
 				display: inline-block;
 				border-radius:15px;
 				box-shadow:0px 0px 50px #888888;
@@ -248,7 +241,12 @@
 				text-align:left;
 			}
 			
-
+			.bigCol{
+				display:inline-block;
+			}
+		  .laTache{
+			position:absolute !important;
+		  }
 			
 			/* Formulaire Colonne */
 			
@@ -276,12 +274,13 @@
 				text-decoration:underline;
 			}
 			
+			
 			li{
 				list-style-type: none;
 				text-align:left;
 			}
 			
-			body{
+			body,.fenetrePrincipal{
 				background:url(bois.jpg);
 				background-size:cover
 			}
@@ -303,7 +302,9 @@
 			.bigCol + .AjoutCol{
 				margin-left: -55px; 
 			}
-			
+			.bigCol{
+				height:100% !important;
+			}
             .AjoutCo{
 				margin-left:50px;
 				background:	#ADD8E6;
@@ -382,13 +383,21 @@
 				display:inline;
 				margin-right:20px;
 			}
-
-		.A4 ,#tableau,#grillePlanning{
+		.fen{
+		    height: calc(100% + 1px);
+			position:fixed;
+			width:100%;
+		}
+		
+		.A4 {
               width:100%;
-              height: calc(98% - 2px);
+              height: 100%;
 		}
 		#tableau{
+            width:100%;
+            height: 95%;
 			margin-top:40px;
+			padding:25px;
 		}
  
 		.A4{
@@ -417,7 +426,6 @@
 
 		.centrer_form {
 		  position: relative;
-		  margin: 20% auto;
 		  display: inline-block;
 		  border-radius: 15px;
 		  box-shadow: 5px 5px 5px #888888;
@@ -434,6 +442,7 @@
 			display: block;
 			margin-top:	5px;
 			margin-left:-20px;
+			page-break-after: always; 
 		}
 		
 	
@@ -443,10 +452,13 @@
       .AjoutCol{
           display:none !important;
 			}
-			.A4{
-			  display:block;
-			  width:100%;
-			  height:100%;
+			.A4 {
+              width:100%;
+              height: 100%;
+			}
+		
+			.A4+.A4 {
+				margin-top:-50px; /*ie bug impression*/
 			}
 			body{
 				background:white;
@@ -459,11 +471,10 @@
 			}			
 			#tableau{
 				margin-top:0px;
+				padding:0px;
 			}
-			#grillePlanning{
-			  padding: 0px;
-			  padding-top: 0px;
-
+			.fen{
+			  padding: 0px;//nécessaire pour ie pour la legende 
 			}
 			
 			.ui-resizable-e, .ui-resizable-handle {
@@ -516,7 +527,7 @@
 			
 			
 			.centre{
-				position:absolute;
+				position:fixed;
 				top:50%;
 				left:50%;
 				transform: translate(-50%, -50%);

@@ -26,15 +26,7 @@
   </head>
   <body>  
 	<div ng-controller="planController" ng-app="planning">
-		<div id="accessToFileForbiden"> 
-		mettre sur un serveur ou 
-		Pour chrome autoriser l'accès à vos fichiers via exécuter (Windows + r) et mettre "chrome.exe -allow-file-access-from-files" <br> vous pouvez aussi installer Firefox pour que ça marche direct ou bien metre l'application sur serveur.
-		Pour Internet Explorer seule la v11 à été testé ie8 incompatible et ie9 et 10 surement compatible.
-		</div>
-		<div ng-include="'html/deleteAccessToFileForbiden.html'"> </div>
-		<div ng-if="fen.isAfficher()"  ng-repeat="fen in tabFen"  class="fen" ng-include="fen.getNameToInclude()"  />
-		<style id="changeStylecell"> </style>
-		<style id="changeStylechangeTexte"> </style>
+		<div  ng-repeat="fen in tabFen"  ng-include="fen.getNameToInclude()"  >{{fen.getNameToInclude()}}</div>
 	</div>
   </body>
 </html>

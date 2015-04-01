@@ -5,6 +5,7 @@ angular.module('planning', ['mod']);
 var mod = angular.module('mod',[]);
 mod.controller('planController', ['$scope',
     function ($scope){
+		$scope.blancHackIncomprhensible="";
 		publicAccessToScope=$scope;
 		var poubelle=[];
 		$scope.formPage = {nbParPage : 1};
@@ -18,12 +19,14 @@ mod.controller('planController', ['$scope',
 		$scope.creerFen = function(){
 			for (var i in arguments){
 				var fenName = arguments[i];
-				$scope.tabFen.push($scope[fenName] = new Fenetre (false));
+				var ind = $scope.tabFen.push($scope[fenName] = new Fenetre (false)) - 1;
+				$scope.tabFen[ind].setName(fenName)
 			}
 		}
-		$scope.creerFen("fenetreEditEvnt","fenetreAjoutColonne","fenetreModifHoraire",
-			"fenCategorie","fenExport","fenetreModifSupprColonne","fenImport","fenetreAjoutCategorie","grillePlanning")
-		$scope.tabFen.push($scope.accueilVisible = new FenetreAvecTransition(true));
+		//l'ordre compte
+		$scope.creerFen("accueilVisible","grillePlanning","fenetreEditEvnt","fenetreAjoutColonne","fenetreModifHoraire",
+			"fenCategorie","fenetreModifSupprColonne","fenImport","fenetreAjoutCategorie","fenExport")
+		$scope.accueilVisible.afficher(true);
 		var formCol=$scope.formCol = {};
 		$scope.largeurGrilleAvecHoraire=1090;
 		$scope.ligne=[8,9,10,11,12,13,14,15,16];
