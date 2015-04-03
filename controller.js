@@ -12,9 +12,26 @@ mod.controller('planController', ['$scope',
 		$scope.clicOnAimant=false;
 		//initialisation//
 		var planning;
-		var form=$scope.form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
+		var form={};//contient col derniere colonne cliqué, heureDeb, minuteDeb, heureFin, minuteFin
 		$scope.mode="ajout";
-		form.categorie="";
+		var formEvmt = {};
+		raccourcisMoiCa("planning,formEvmt,form");
+		function raccourcisMoiCa(chaine){
+			var arguments2=chaine.split(",")
+			for(var i in arguments2){
+				var name = arguments2[i];
+				var set = eval("set=function(x){"+name+"=x}");
+				var get = eval("get=function(){return "+name+"}");
+				Object.defineProperty($scope,name,
+				{	
+					set: set,
+					get: get, 
+				})			
+			}
+		}
+	
+	
+		formEvmt.categorie="";
 		$scope.tabFen=[];
 		$scope.creerFen = function(){
 			for (var i in arguments){
@@ -27,6 +44,7 @@ mod.controller('planController', ['$scope',
 		$scope.creerFen("accueilVisible","grillePlanning","fenetreEditEvnt","fenetreAjoutColonne","fenetreModifHoraire",
 			"fenCategorie","fenetreModifSupprColonne","fenImport","fenetreAjoutCategorie","fenExport")
 		$scope.accueilVisible.afficher(true);
+		form.fermer = true;
 		var formCol=$scope.formCol = {};
 		$scope.largeurGrilleAvecHoraire=1090;
 		$scope.ligne=[8,9,10,11,12,13,14,15,16];
@@ -111,93 +129,47 @@ mod.controller('planController', ['$scope',
 		/*******************************/
 		
 		$scope.validationFormulaireEvenement= function(){
-			var res = true;
-			if (isNaN(form.nbCol) || form.nbCol < 0 || isNaN(form.heureDeb) || isNaN(form.minuteDeb) || isNaN(form.heureFin) || isNaN(form.minuteFin)) {
-				return false;
-			}
-			
-			if (!form.titre) {
-        alert('Veuillez saisir un titre valide.');
-      } else {
-        if($scope.mode =="ajout") {
-          res = $scope.ajoutEvmt();
-        }
-        
-        if ($scope.mode == "modif") {
-          res = $scope.modifEvmt()
-        }
-			
-        if(res != false) {
-          fenetreEditEvnt.afficher(!fenetreEditEvnt.isAfficher());
-        }
-      }
-		}
-			
-		$scope.ajoutEvmt=function(){
-				var colonne = form.col;
-				var per= new Periode(form);	
-				/*if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
-						alert("Impossible d'ajouter l'évènement : débordement de la page");
-						return false;
-				}*/
-				var evnmt=new EvenementClassique (form.titre,form.description,per,form.categorie, form.nbCol);
-				colonne.ajouterEvenement(evnmt);
-				var indexEvenementPrin = form.col.getTaches().indexOf(evnmt);
-				if (form.nbCol > 1) {
-					var colonnes = planning.getColonnes();
-					var indexColonne = colonnes.indexOf(form.col);
-					evnmt.setNbEvenementSecondaire(form.nbCol)
-				} 					
-		}
-	
-		
-		
-		$scope.modifEvmt=function(){		
-			if (planning.testDepassementNombreColonnes(form.col, form.nbCol)) {
+			var evnmt = ($scope.mode =="ajout") ? new EvenementClassique() : form.evnmt ;
+			if (planning.testDepassementNombreColonnes(form.col, formEvmt.nbCol)) {
 					alert("Impossible de modifier l'évènement : débordement de la page");
 					return false;
 			}
-			form.evnmt.initialize(form.titre, form.description, new Periode(form), form.categorie, form.nbCol);
-			form.evnmt.setNbEvenementSecondaire(form.nbCol)
+			evnmt.initialize(formEvmt.titre, formEvmt.description, new Periode(formEvmt), formEvmt.categorie, formEvmt.nbCol);
+			if($scope.mode =="ajout"){
+				form.col.ajouterEvenement(evnmt)
+			}
+			evnmt.setNbEvenementSecondaire(formEvmt.nbCol)
+			$scope.fenetreEditEvnt.afficher(!form.fermer);
+			return true;
 		}
-		
+				
 		$scope.suppEvmt=function(){
 			poubelle.push(form.evnmt);
-			form.col.supprimerEvenement(form.evnmt);
-			
-			if (form.evnmt.getNbCol() > 1 ){
-				$scope.suppEvenementCommun();
-			}
-      fenetreEditEvnt.afficher(false);
+			form.evnmt.setNbEvenementSecondaire(0);
+			form.col.supprimerEvenement(form.evnmt);			
+			fenetreEditEvnt.afficher(false);
 		}
 		
-		$scope.suppEvenementCommun=function() {
-			var tabEvenementSecondaire = form.evnmt.getTabEvenementAutreCol();
-			var tabColonne = planning.getColonnes();
-			var indexColEvenementPrincipal = tabColonne.indexOf(form.col);
-			var cpt = 1;
-			tabEvenementSecondaire.forEach (function(evenementSecondaire) {
-				tabColonne[indexColEvenementPrincipal+cpt].supprimerEvenement(evenementSecondaire);
-				cpt++;
-			})
-		}
 		
 		$scope.copierEvenement=function() {
-			$scope.evenementCopie = evenementCopie = new EvenementClassique (form.titre,form.description,0,form.categorie, form.nbCol);
+			var f =formEvmt;
+			$scope.evenementCopie = evenementCopie = new EvenementClassique();
+			evenementCopie.setNom(f.titre).setPeriode(f).setDescription(f.description);
+			evenementCopie.setCategorie(f.categorie).setNbCol(f.nbCol)
 			fenetreEditEvnt.afficher(false);
 		}
 		
 		$scope.collerEvenement=function() {
 			var colonne = form.col;
 			var per= new Periode(form);	
-			if (planning.testDepassementNombreColonnes(colonne, form.nbCol)) {
+			if (planning.testDepassementNombreColonnes(colonne, formEvmt.nbCol)) {
 					alert("Impossible d'ajouter l'évènement : débordement de la page");
 					return false;
 			}
-			form.titre=evenementCopie.getNom();
-			form.description=evenementCopie.getDescription();
-			form.categorie=evenementCopie.getCategorie();
-			form.nbCol=evenementCopie.getNbCol();
+			formEvmt.titre=evenementCopie.getNom();
+			formEvmt.description=evenementCopie.getDescription();
+			formEvmt.categorie=evenementCopie.getCategorie();
+			formEvmt.nbCol=evenementCopie.getNbCol();
 			evenementCopie.setPeriode(per);
 		}
 		
@@ -210,14 +182,14 @@ mod.controller('planController', ['$scope',
 		
 		/*Categorie/Couleur */
 		$scope.focusCouleur=function(categorie){
-			form.categorie = categorie;
-			$scope.titreCat.val = form.categorie.getNom();
+			formEvmt.categorie = categorie;
+			$scope.titreCat.val = formEvmt.categorie.getNom();
 		} 
 		
 		$scope.modifierCategorie=function(){
 			
-			var nom = form.categorie.getNom();
-			var couleur = form.categorie.getCouleur();
+			var nom = formEvmt.categorie.getNom();
+			var couleur = formEvmt.categorie.getCouleur();
 
 			if(nom != titreCat.val) {
 				if(planning.estCategorieExistante(new Categorie(couleur,titreCat.val)) != null) {
@@ -236,19 +208,19 @@ mod.controller('planController', ['$scope',
 						}
 					})	
 					planning.setCategories(listeCategories);
-					form.categorie = res;
+					formEvmt.categorie = res;
 				}
 			}
 		}
 		
 		$scope.supprimerCategorie=function(){
-			var nom = form.categorie.getNom();
-			var couleur = form.categorie.getCouleur();
+			var nom = formEvmt.categorie.getNom();
+			var couleur = formEvmt.categorie.getCouleur();
 			var catSup = planning.estCategorieExistante(new Categorie(couleur,nom));
 			if (catSup != null) {
 				planning.supprimerCategorie(catSup);
 			}
-			form.categorie = '';
+			formEvmt.categorie = '';
 			titreCat.val = '';
 		}
 		
@@ -262,7 +234,7 @@ mod.controller('planController', ['$scope',
 					planning.ajouterCategories(couleurCat.val,titreCat.val);
 					fenetreAjoutCategorie.afficher(false);
 					titreCat.val ="";
-					form.categorie="";
+					formEvmt.categorie="";
 					$scope.fenCategorie.afficher(true);
 				}
 			}
@@ -284,7 +256,7 @@ mod.controller('planController', ['$scope',
 		$scope.retourModifierCategorie = function() {
 			fenetreAjoutCategorie.afficher(false);
 			$scope.fenCategorie.afficher(true); 
-			form.categorie = '';
+			formEvmt.categorie = '';
 		}
 		
 		$scope.getCategoriesUtilises = function() {
@@ -313,9 +285,9 @@ mod.controller('planController', ['$scope',
 		$scope.afficherAjouterEvenement=function(col,ligneDeb){
 			viderInput();
 			$scope.mode="ajout";
-			form.categorie = planning._categories[0];
-			titreCat.val = planning._categories[0].getNom();
-			form.nbCol = 1;
+			formEvmt.categorie = planning.getCategories()[0];
+			titreCat.val = planning.getCategories()[0].getNom();
+			formEvmt.nbCol = 1;
 			$scope.fenetreEditEvnt.afficher(true);
 			initHeureEvmt(ligneDeb,ligneDeb+1);	
 			form.col=col;
@@ -323,27 +295,27 @@ mod.controller('planController', ['$scope',
 		
 		$scope.afficherModifierEvenement=function(evmt,col){
 			$scope.mode="modif";
-			form.categorie = evmt.getCategorie();
-			titreCat.val = form.categorie.getNom();
-			var p=evmt.getPeriode();
-			var hDeb=p.getHeureDebut();
-			var hFin=p.getHeureFin();
-			var mDeb=p.getMinuteDebut();
-			var mFin=p.getMinuteFin();
+			formEvmt.categorie = evmt.getCategorie();
+			titreCat.val = formEvmt.categorie.getNom();
+			var p = evmt.getPeriode();
+			var hDeb = p.getHeureDebut();
+			var hFin = p.getHeureFin();
+			var mDeb = p.getMinuteDebut();
+			var mFin = p.getMinuteFin();
 			initHeureEvmt(hDeb,hFin,mDeb,mFin);
-			form.titre=evmt.getNom();
-			form.description=evmt.getDescription();
+			formEvmt.titre=evmt.getNom();
+			formEvmt.description=evmt.getDescription();
 			$scope.fenetreEditEvnt.afficher(true);	
 			form.col=col;	
 			form.evnmt=evmt;
-			form.categorie = evmt.getCategorie();
+			formEvmt.categorie = evmt.getCategorie();
 		}
 		
 		var initHeureEvmt=function(hDeb,hFin,mDeb,mFin){
-			$scope.form.heureDeb=hDeb || 8;
-			$scope.form.minuteDeb=mDeb || 0;
-			$scope.form.heureFin=hFin || 9;
-			$scope.form.minuteFin=mFin || 0;
+			$scope.formEvmt.heureDeb=hDeb || 8;
+			$scope.formEvmt.minuteDeb=mDeb || 0;
+			$scope.formEvmt.heureFin=hFin || 9;
+			$scope.formEvmt.minuteFin=mFin || 0;
 		}
     
 		
@@ -427,8 +399,8 @@ mod.controller('planController', ['$scope',
 		}
 		
 		function viderInput(){
-			form.titre="";
-			form.description="";
+			formEvmt.titre="";
+			formEvmt.description="";
 		}
 		
 		(function glisserDeposer(){	
