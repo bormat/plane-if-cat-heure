@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html>
   <head>
 		<title>Planificat'heure</title>
@@ -28,11 +28,11 @@
 	<div ng-controller="planController" ng-app="planning">
 		<div id="accessToFileForbiden"> 
 		mettre sur un serveur ou 
-		Pour chrome autoriser l'accès à vos fichiers via exécuter (Windows + r) et mettre "chrome.exe -allow-file-access-from-files" <br> vous pouvez aussi installer Firefox pour que ça marche direct ou bien metre l'application sur serveur.
-		Pour Internet Explorer seule la v11 à été testé ie8 incompatible et ie9 et 10 surement compatible.
+		Pour chrome autoriser l'accÃ¨s Ã  vos fichiers via exÃ©cuter (Windows + r) et mettre "chrome.exe -allow-file-access-from-files" <br> vous pouvez aussi installer Firefox pour que Ã§a marche direct ou bien metre l'application sur serveur.
+		Pour Internet Explorer seule la v11 Ã  Ã©tÃ© testÃ© ie8 incompatible et ie9 et 10 surement compatible.
 		</div>
-		<div ng-include="'html/deleteAccessToFileForbiden.html'"></div>
-		<div  ng-repeat="fen in tabFen"  ng-if="fen.isAfficher()"    class=" fen {{fen.class}}" ng-include="fen.getNameToInclude()"  />
+		<div ng-include="'html/deleteAccessToFileForbiden.html'"> </div>
+		<div ng-if="fen.isAfficher()"  ng-repeat="fen in tabFen"  class="fen" ng-include="fen.getNameToInclude()"  />
 		<style id="changeStylecell"> </style>
 		<style id="changeStylechangeTexte"> </style>
 	</div>

@@ -1,6 +1,3 @@
-﻿	/*ce module peut être utilisé à part pour serialiser n'importe quel objet,les tableaux de type
-	tableaux ne sont pas totalement prix en compte  contrairement aux objet de type tableau */
-	
 	/*****************************************************************************************/
 	/************************Objet et contenu enumerable vers Chaine**************************/
 	/*****************************************************************************************/
@@ -15,6 +12,7 @@
 			if(obj.serializationName){
 				obj.serializationName = obj.serializationName;// ceci n'est pas inutile __proto__ vers objet
 			}
+			
 			obj.myid = tab.push(obj) - 1;
 			var chaine = ["{"];
 			for(var i in obj){
@@ -38,19 +36,11 @@
 			}
 			chaine[chaine.length-1] = "}";
 			tab[obj.myid] = chaine.join("");
-		}
-		function deleteMyid(obj){
-			if(obj && obj.myid != undefined){
-				delete obj.myid;
-				for(var i in obj){
-					if(obj.hasOwnProperty(i)){
-						deleteMyid(obj[i]);
-					}
-				}
-			}
 		}		
 		genererTableauDeChaine(theMainObject);
-		deleteMyid(theMainObject);		
+		for(var i in tab){
+				delete tab[i].myid;
+		}
 		return "[" + tab.join(",") +"]"
 	}
 
@@ -71,7 +61,7 @@
 					if (contientUneRef(obj,prop)){
 						eval ("obj[prop]="+ obj[prop]);
 					}
-					/*les tableaux peuvent être parsé mais deviennent des objets, utiliser un objet
+					/*les tableaux peuvent �tre pars� mais deviennent des objets, utiliser un objet
 					simulant un tableau de preference*/
 					//genererHeritage(obj[prop])
 				}
@@ -99,12 +89,14 @@
 		
 		function genererHeritage(obj){
 			if(obj.serializationName){
-				obj.__proto__ = window[obj.serializationName].prototype; /*bien sur ça marche que si vous avez le nom de la classe dans cette attribut(à metre dans le prototype de la classe)*/
+				obj.__proto__ = window[obj.serializationName].prototype; /*bien sur �a marche que si vous avez le nom de la classe dans cette attribut(� metre dans le prototype de la classe)*/
 			}
 		}		
 		function nettoyage(){
 			for(var i in tab){
 				delete tab[i].serializationName;
+				delete tab[i].myid;
+				delete tab[i].$$hashKey;
 			}
 		}
 		

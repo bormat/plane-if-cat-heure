@@ -4,5 +4,6 @@
 		<input id="titreCol" type="text" ng-model="formCol.titre" show-focus="fenetreModifSupprColonne.isAfficher()" required />
 		<input type="submit" value="Modifier" />
 		<input type="button" value="Supprimer" ng-click="supprColonne()" ng-if="planning.getMode() === 'journalier'" />
+		<input type="button" value="Annuler" ng-click="fenetreModifSupprColonne.afficher(false)" />
 	</form>
 </div>

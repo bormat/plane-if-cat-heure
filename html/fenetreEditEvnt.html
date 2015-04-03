@@ -1,29 +1,28 @@
-﻿<div class="max" ng-include="'html/fermerFen.html'"/>
-<form id="editEvnt" ng-submit="validationFormulaireEvenement()">
+﻿<form id="editEvnt" class="form_evenement centrer_form centre" ng-submit="validationFormulaireEvenement()">
 				<table>
 					<tr>
 						<td style="width:100px">Titre:</td>
-						<td><input type="text" ng-model="formEvmt.titre" show-focus="fenetreEditEvnt.isAfficher()" required /></td>
+						<td><input type="text" ng-model="form.titre" show-focus="fenetreEditEvnt.isAfficher()" required /></td>
 					</tr>
 					<tr>
 						<td style="width:100px">Heure début:</td>
-						<td><input class="inputHeure" type="number" ng-model="formEvmt.heureDeb" min="{{horaire.heureDeb}}" max="{{horaire.heureFin - 1}}" />h
-                <input type="number" class="inputHeure" ng-model="formEvmt.minuteDeb" min="0" max="59" />m</td>
+						<td><input class="inputHeure" type="number" ng-model="form.heureDeb" min="{{horaire.heureDeb}}" max="{{horaire.heureFin - 1}}" />h
+                <input type="number" class="inputHeure" ng-model="form.minuteDeb" min="0" max="59" />m</td>
 					</tr>
 					<tr>
 						<td>Heure fin:</td>
-						<td><input type="number" class="inputHeure" ng-model="formEvmt.heureFin" min="{{horaire.heureDeb}}" max="{{horaire.heureFin - 1}}"  />h
-                <input type="number" class="inputHeure" ng-model="formEvmt.minuteFin" min="0" max="59" />m<br /></td>
+						<td><input type="number" class="inputHeure" ng-model="form.heureFin" min="{{horaire.heureDeb}}" max="{{horaire.heureFin - 1}}"  />h
+                <input type="number" class="inputHeure" ng-model="form.minuteFin" min="0" max="59" />m<br /></td>
 					</tr>
 					<tr>
 						<td style="vertical-align:top;">Description:</td>
-						<td><textarea ng-model="formEvmt.description" maxlength="95" style="width:200px;height:80px;"></textarea></td>
+						<td><textarea ng-model="form.description" maxlength="95" style="width:200px;height:80px;"></textarea></td>
 					</tr>
 					<tr>
-						<td>Evenement commun :</td><td> <input type="number" ng-model="formEvmt.nbCol" min="1" max="10" /> </td>
+						<td>Evenement commun :</td><td> <input type="number" ng-model="form.nbCol" min="1" max="10" /> </td>
 					</tr>
 					<tr><td></td>
-						<td><span  ng-click="focusCouleur(categorie)" ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(formEvmt.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
+						<td><span  ng-click="focusCouleur(categorie)" ng-repeat="categorie in planning.getCategories()" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
 						</span></td>
 					</tr>
 					<tr><td></td>
@@ -36,7 +35,8 @@
 					<input type="button" value="Copier" ng-click="copierEvenement()" />
 					<input type="submit" value="Ajouter"  ng-if="mode == 'ajout'" />
 					<input type="submit" value="Modifier" ng-if="mode != 'ajout'" />
-					fermer après validation <input  ng-model="form.fermer" type="checkbox"/>
 					<input type="button" value="Supprimer" ng-click="suppEvmt();" ng-if="mode!='ajout'" />
+					<input type="button" value="Annuler"   ng-click="fenetreEditEvnt.afficher(false);" />
 				</div>
 		</form>
+</div>

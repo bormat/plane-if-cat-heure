@@ -1,7 +1,10 @@
-<form class="gererColonne centrer_form" >
+<div class="containerForm" >
+	<form class="gererColonne centrer_form" >
 		<label for="titreCategorie">Titre :</label>
 		<input id="titreCategorie" type="text" ng-model="titreCat.val" show-focus="fenetreAjoutColonne.isAfficher()" />
 		<input type="color" ng-model="couleurCat.val" />
 		<input type="submit" value="Ajouter" ng-click="ajoutCategorie()"  />
-</form>
+		<button ng-click="retourModifierCategorie();">Annuler</button>
+	</form>
 	
+</div>
