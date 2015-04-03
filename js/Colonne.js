@@ -1,4 +1,4 @@
-/***************************
+﻿/***************************
 ***** Classe colonne ******
 ****************************/
 
@@ -10,7 +10,7 @@ Class.create("Colonne",{
 	},
 	ajouterEvenement:function(evmt){
 		this._taches.push(evmt);
-    evmt.setColonne(this);
+		evmt.setColonne(this);
 	},
 	supprimerEvenement:function(evmt){
 		this._taches.suppElmt(evmt);

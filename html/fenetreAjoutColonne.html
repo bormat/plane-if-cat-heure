@@ -1,8 +1,6 @@
-<div class="containerForm" >
-	<form class="centrer_form"  ng-submit="ajoutColonne()">
-		<label for="titreCol">Titre :</label>
-		<input id="titreCol" type="text" ng-model="formCol.titre" show-focus="fenetreAjoutColonne.isAfficher()" required />
-		<input type="submit" value="Ajouter" />
-		<input type="button" value="Annuler" ng-click="fenetreAjoutColonne.afficher(false)" />
-	</form>
-</div>
+<div class="max" ng-include="'html/fermerFen.html'"/>
+<form  ng-submit="ajoutColonne()">
+	<label for="titreCol">Titre :</label>
+	<input id="titreCol" type="text" ng-model="formCol.titre" show-focus="true" required />
+	<input type="submit" value="Ajouter" />
+</form>

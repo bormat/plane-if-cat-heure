@@ -1,18 +1,17 @@
-﻿<div class="containerForm" >
-	<form class="centrer_form"  ng-submit="">
-		Gestion des catégories<br />
-		<div class="containerCategorie" >
-			<div ng-repeat="categorie in planning.getCategories()" class="couleurCategorie" ng-hide="$first" >
-				<span ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
-				</span>
-			</div>
-			<img id="ajoutCat" ng-click="afficherAjouterCategorie()" src="./css/img/iconeplus.png" class="radio ajoutCategorie" ></img>
-			<div>
-				<input id="titreCategorie" type="text" ng-model="titreCat.val" />
-				<button ng-click="modifierCategorie()" ng-disabled= "form.categorie == ''">Modifier</button>
-				<button ng-click="supprimerCategorie()" ng-disabled= "form.categorie == ''">Supprimer</button>
-				<button ng-click="fenCategorie.afficher(false); form.categorie = '';">Annuler</button>
-			</div>
+﻿<div class="max" ng-include="'html/fermerFen.html'"/>
+<form  ng-submit="">
+	Gestion des catégories<br />
+	<div class="containerCategorie" >
+		<div ng-repeat="categorie in planning.getCategories()" class="couleurCategorie" ng-hide="$first" >
+			<span ng-click="focusCouleur(categorie)" class="radio"   ng-style="{background:categorie.getCouleur()}" ng-class="(form.categorie == categorie ) ? 'radioActive' : 'radioInactive'"> 
+			</span>
 		</div>
-	</form>
-</div>
+		<img id="ajoutCat" ng-click="afficherAjouterCategorie()" src="./css/img/iconeplus.png" class="radio ajoutCategorie" ></img>
+		<div>
+			<input id="titreCategorie" type="text" ng-model="titreCat.val" />
+			<button ng-click="modifierCategorie()" ng-disabled= "form.categorie == ''">Modifier</button>
+			<button ng-click="supprimerCategorie()" ng-disabled= "form.categorie == ''">Supprimer</button>
+			<button ng-click="fenCategorie.afficher(false); form.categorie = '';">Annuler</button>
+		</div>
+	</div>
+</form>
