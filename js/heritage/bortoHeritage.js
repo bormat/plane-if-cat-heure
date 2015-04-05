@@ -9,27 +9,30 @@ function getClass(superName){
 	
 	//crée les methode getteur et setteur et les copie dans l'objet proto
 	function addGetEtSet(proto, methodes){
-		methodes.getteurEtSetteur = methodes.getteurEtSetteur || {};
-		methodes.getteur = methodes.getteur || {};
-		methodes.setteur = methodes.setteur || {};
+		function maj(chaine) {
+			return chaine.charAt(0).toUpperCase() + chaine.slice(1);
+		}
+		function suppUndefined(obj,propr){
+			propr.forEach(function(prop){
+				if (!obj[prop]) obj[prop] = "";
+			})
+		}
+		suppUndefined(methodes,['getteurEtSetteur','getteur','setteur'])
+		methodes.getteur = methodes.getteur.split(",");
+		methodes.setteur = methodes.setteur.split(",");
 		for( var o=0; o<2;o++){
-			for ( var i in methodes.getteur){
-				prop = methodes.getteur[i];
-				var propMaj = prop.charAt(0).toUpperCase()+prop.substr(1,prop.length-1);
-				proto["get"+propMaj] = function(){
-					return this['_'+prop]
+			methodes.getteur.forEach(function(prop){
+				if (prop != ""){
+					proto["get"+maj(prop)] = new Function("return this._"+prop);
 				}
-			}
-			for ( var i in methodes.setteur){
-				prop = methodes.setteur[i];
-				var propMaj = prop.charAt(0).toUpperCase()+prop.substr(1,prop.length-1);
-				proto["set"+propMaj] = function(o){ 
-					this['_'+prop]=o; 
-					return this;
+			})
+			methodes.setteur.forEach(function(prop){
+				if (prop != ""){
+					proto["set"+maj(prop)] = new Function("o","this._"+prop+"=o;return this;"); 
 				}
-			}
+			})
 			//et on refait un tour pour ceux qui ont le getteur et le setteur
-			methodes.setteur = methodes.getteur = methodes.getteurEtSetteur;
+			methodes.setteur = methodes.getteur = methodes.getteurEtSetteur.split(",");
 		}
 		delete methodes.getteurEtSetteur;
 		delete methodes.getteur;

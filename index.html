@@ -15,13 +15,19 @@
 		<script src="js/ElementGraphique.js"> </script>
 		<script src="js/Planning.js"> </script>
 		<script src="js/Colonne.js"> </script>
-		<script src="js/Donnee.js"> </script>
 		<script src="js/Evenement.js"> </script>
 		<script src="js/Periode.js"> </script>
 		<script src="js/Graphique.js"> </script>
 		<script src="js/Categorie.js"> </script>
 		<script src="js/Page.js"> </script>
+		<script src="js/Categorie.js"> </script>
+		<script src="cont/gererEvenement.js"> </script>
 		<script src="js/serialisation.js"> </script>
+		<script src="cont/gererCreationPlanning.js"> </script>
+		<script src="cont/gererColonne.js"> </script>
+		<script src="cont/gererCategorie.js"> </script>
+		<script src="cont/serialisation.js"> </script>
+		<script src="controllerImpl.js"></script>
 		<script src="controller.js"></script>
   </head>
   <body>  
@@ -32,9 +38,10 @@
 		Pour Internet Explorer seule la v11 à été testé ie8 incompatible et ie9 et 10 surement compatible.
 		</div>
 		<div ng-include="'html/deleteAccessToFileForbiden.html'"></div>
-		<div  ng-repeat="fen in tabFen"  ng-if="fen.isAfficher()"    class=" fen {{fen.class}}" ng-include="fen.getNameToInclude()"  />
-		<style id="changeStylecell"> </style>
-		<style id="changeStylechangeTexte"> </style>
+		<!--ng-if="fen.isAfficher()"-->
+		<div  ng-repeat="fen in tabFen"  ng-class="fen.getClasse()"  class=" fen {{fen.getName()}}" ng-include="fen.getNameToInclude()"  />
 	</div>
+	<style id="changeStylecell"> </style>
+	<style id="changeStylechangeTexte"> </style>
   </body>
 </html>

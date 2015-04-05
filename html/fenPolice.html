@@ -1,17 +1,19 @@
+<div class="max" ng-include="'html/fermerFen.html'"/>
+
 <form class="centrer_form" >
 	<table>
 		<tr>
 			<td style="width:100px">Taille de la police:</td>
-			<td><input id="policeTaille" type="number" value="15" min="0"> Px</td>
+			<td><input ng-model="formPerso.polTaille" type="number" value="15" min="0"> Px</td>
 		</tr>
 		<tr>
 			<td style="width:100px">Couleur de la police:</td>
-			<td><input id="policeCouleur" type="color"/></td>
+			<td><input ng-model="formPerso.polCouleur" type="color"/></td>
 		</tr>
 		<tr>
 			<td style="width:100px">Style de la police :</td>
 			<td>
-				<select data-ng-model="polStyle.value" data-ng-options="v for v in font"></select>
+				<select data-ng-model="formPerso.polStyle" data-ng-options="v for v in font"></select>
 				</br>
 			</td>
 		</tr>
@@ -20,8 +22,8 @@
 			<td colspan="2" align ="left"><u>Séléctionner la section concernée :</u></td>
 		</tr>
 		<tr>
-			<td><input id="rd_int" type="radio" name="section" value="inter" checked>Cellule internes </td>
-			<td><input id="rd_ext" type="radio" name="section" value="exter">Cellule externes </td>
+			<td><input ng-model="formPerso.classCss" type="radio" name="section" value="cell" >Cellule internes </td>
+			<td><input ng-model="formPerso.classCss" type="radio" name="section" value="changeTexte">Cellule externes </td>
 		</tr>
 		<tr>
 			<td><button ng-click="changerPolice();">appliquer</td>

@@ -15,6 +15,6 @@ Class.create("ElementGraphique",{
 	},
 	getLargeurPrcnt: function(largeur){
 		return this._largeur + "%";
-	}
+	},
+	getteurEtSetteur: "planning,largeur"
 })
-addGSet(ElementGraphique,['planning','largeur']);

@@ -1,11 +1,4 @@
 'use scrict';
-Array.prototype.suppElmt=function(elmt){
-  var indiceMonEvnmt = this.indexOf(elmt);
-  this.splice(indiceMonEvnmt,1);
-}
-Object.defineProperty(Array.prototype, "suppElmt", {
-  enumerable: false,
-});
 
 /***************************
 ***** Classe planning ******
@@ -29,15 +22,14 @@ Class.create("Tab", {
 		this.length++;
 		return this.length;
 	},
-	last:function(){
-		return(this[this.length-1])
+	last:function(x){
+		return(x = x || this[this.length-1]);
 	},
 	suppElmt: function(elmt){
 		var indiceMonEvnmt = this.indexOf(elmt);
-		return this.splice(indiceMonEvnmt,1);//don't care about length Array are dynamics
+		return this.splice(indiceMonEvnmt,1);
 	}
 })
-
 
 for( var prop in Tab.prototype ){
 	Object.defineProperty(Tab.prototype, ""+prop, {
@@ -68,7 +60,7 @@ Class.create("Planning", {
 		return this.getHoraire().getHeureFin() - this.getHoraire().getHeureDebut() + 1;
 	},
 	//ni px ni % c'est une formule à utiliser pour la propriété calc de css 
-	getHauteurCell:function(){
+	getHauteurCell:function(calc){
 		return "( 100% - "+this.getHauteurLigne1()+"px ) * 60 / "+this.getHoraire().getIntervalle(); 
 	},
 	addPage:function(unePage){
@@ -176,6 +168,6 @@ Class.create("Planning", {
 				colonne.reinitialiserEvenement();
 			})					
 		}
-	}
+	},
+	getteurEtSetteur:"mode,categories,largeurMax,colonneHoraire,horaire,hauteurLigne1"
 })
-addGSet(Planning,["mode","categories","largeurMax","colonneHoraire","horaire","hauteurLigne1"]);

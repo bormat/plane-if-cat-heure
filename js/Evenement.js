@@ -18,7 +18,7 @@ Class.create("Evenement",{
 		return res;
 	},
 	//height
-	hauteur:function(calc){
+	hauteur : function(calc){
 		var plan=this.getColonne().getPage().getPlanning();
 		var nbcell = this.getPeriode().getIntervalle()/60
 		var res = "("+plan.getHauteurCell() +" * " +nbcell+")"
@@ -29,12 +29,11 @@ Class.create("Evenement",{
 	},
 	largeur : function() {
 		return 0+"%";
-	}
+	},
+	getteurEtSetteur : "periode,colonne",
+	getteur : "visibility"
+	
 })
-
-//getter setter
-addGSet(Evenement,["id","periode",'colonne']);
-addGSet(Evenement,["visibility"],"get");
 
 Class.create("EvenementClassique",{
 	extend: Evenement,
@@ -46,7 +45,13 @@ Class.create("EvenementClassique",{
 		this.setCategorie(categorie);
 		this._nbCol = nbCol;
 	},
-	
+	supprimer: function(){
+        var tabTaches  =  this.getColonne().getTaches().suppElmt(this);
+		this.setNbEvenementSecondaire(0);
+	},
+	undo: function(){
+		this._colonne.ajouterEvenement(this)
+	},	
 	setNbEvenementSecondaire:function(nb){
 		var colonnes = this.getColonne().getPage().getColonnes();
 		var indiceMaCol = colonnes.indexOf(this.getColonne());
@@ -56,10 +61,11 @@ Class.create("EvenementClassique",{
 		  var evnmt = new EvenementInvisible(this._periode);
 		  evnmt.setEvenementClassique(this);
 		  this._tabEvenementAutreCol.push(this)
+		  this._tabEvenementAutreCol.push(this)
 		  colonnes[indiceMaCol + i].ajouterEvenement(evnmt)
 		}
 		//suppression si necessaire
-		while(nb  <= indMax ){
+		while(nb  <= indMax && indMax > 0 ){
 			indMax--;
 			this._tabEvenementAutreCol[indMax].supprimer();
 		}
@@ -74,9 +80,10 @@ Class.create("EvenementClassique",{
 		}
 		var maLarg = this.getColonne().getLargeur();
 		return 100 * (maLarg + largeur)/maLarg + "%"
-	}
+	},
+	getteurEtSetteur : "nom,description,tabEvenementAutreCol,categorie,nbCol",
+
 })
-addGSet(EvenementClassique,["nom","description",'tabEvenementAutreCol','colonne','categorie','nbCol']);
 
 Class.create("EvenementInvisible",{
 	extend: Evenement,
@@ -89,9 +96,8 @@ Class.create("EvenementInvisible",{
         var tabTaches  =  this.getColonne().getTaches().suppElmt(this)     
         var tabTaches2 =  this.getEvenementClassique().getTabEvenementAutreCol().suppElmt(this);
 	},
-  
+  	getteurEtSetteur : "evenementClassique",
 })
-addGSet(EvenementInvisible,["evenementClassique"]);
 
 
 

@@ -97,15 +97,22 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
-			.optionInvisible {
+			.fenInvisible {
 				margin-left: -9000px;
+				display:none;
 				opacity: 0;
-				transition: margin-left 0s ease 1s, opacity 1s linear 0s;
+				transition: margin-left 0s ease 1s, opacity 1s ease 0s;
 				float: left;
-				transition: margin-left 0s ease 0s, opacity 1.5s linear 0s;
+			}
+			.fenVisible {
+				float: left;
 				margin-top: 0px;
 				margin-left: 0px;
+				transition: margin-left 0s ease 0s, opacity 1s ease 0s;
 				opacity: 1;
+			}
+			.anime {
+				display:block;
 			}
 			
 			.colum {
@@ -131,7 +138,6 @@
 				top:0%;
 				bottom:0%;
 				position:absolute;
-				z-index:10;
 				background:url("postit.jpg");
 				background-repeat:no-repeat;
 				background-size: cover;
@@ -256,13 +262,18 @@
 			
 			#mode
 			{
-				padding:30px;
-				margin-top:5%;
-				position:absolute;
-				/*top:300px;*/ top:38%;
-				/*left:400px;*/ left:28%;
-				font-family:"Monotype Corsiva",Georgia ,Serif;
-				font-size:50px;
+				  margin-top: 5%;
+				  position: absolute;
+				  top: 38%;
+				  left: 28%;
+				  font-family: "Monotype Corsiva",Georgia ,Serif;
+				  font-size: 50px;
+				  padding-top: 50px;
+				  padding-left: 100px;
+				  background: url("postModeOK.png");
+				  background-size: cover;
+				  width: 400px;
+				  height: 350px;
 			}
 			
 			a{
@@ -283,11 +294,16 @@
 				text-align:left;
 			}
 			
-			body,.fenetrePrincipal{
+			body,.grillePlanning{
 				background:url(bois.jpg);
-				background-size:cover
+				background-size:cover;
+				overflow:hidden;
 			}
-			
+			.grillePlanning{
+				overflow-y: scroll;
+				overflow-x: hidden;
+			}
+				
 			#AjoutH{
 			color:rgb(199,140,54);
 			}
@@ -387,9 +403,9 @@
 				margin-right:20px;
 			}
 		.fen{
-		    height: calc(100% + 1px);
-			position:absolute;
-			width:100%;
+		    height: 100%;
+			position: absolute;
+			width: 100%;
 		}
 		.fixed{
 			position:fixed;
@@ -468,17 +484,33 @@
 		
 		
 		@media print {
+				body,.grillePlanning{
+				overflow:visible;
+			}
+			.grillePlanning{
+				overflow: visible;
+			}
+			
 			.AjoutCol{
 			  display:none !important;
 			}
 			.A4 {
               width:100%;
               height: 100%;
-			}
-		
+			}		
 			.A4+.A4 {
 				margin-top:-50px; /*ie bug impression*/
 			}
+		.fen{
+			display:none;
+		}
+		.grillePlanning {
+			display:block;
+			background:none;
+			 height: calc(100% + 1px);/*ie hack sinon juste une page*/
+			position:absolute;
+			width:100%;
+		}
 			body{
 				background:white;
 			}
@@ -518,22 +550,18 @@
 				background-color:#FFF
 			}
  
-			.info span{
-				display: none;
+			.info:hover span{
+				display: block;
 			}
  
-			.info:hover span{
-				display:block;
+			.info span{
+				display: none;
 				position:absolute;
-				top:2em; right:-1em;
-				border:1px solid #000;
-				background-color:#FFF;
-				color:#000;
-				text-align: justify;
-				font-weight:none;
+				top:30px;
+				background-color: rgba(255,255,255,0.8);
 				padding:5px;
+				border:1px solid black;
 				border-radius:10px;
-				opacity:0.8;
 			}
 
 			.bordPlanningDroite {

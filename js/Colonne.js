@@ -8,6 +8,9 @@ Class.create("Colonne",{
 		this._titre=titre,
 		this._largeur=16.66
 	},
+	undo: function(){
+		this.getPage().getPlanning().ajoutColonne(this)
+	},
 	ajouterEvenement:function(evmt){
 		this._taches.push(evmt);
 		evmt.setColonne(this);
@@ -30,9 +33,8 @@ Class.create("Colonne",{
 	},
 	multLargeurPar:function(coef){
 		this._largeur *= coef;
-	}
+	},
+	getteurEtSetteur:"taches,titre,page,colonne",
+	getteur:"largeur"
 })
-
-addGSet(Colonne,["taches","titre", "page","colonne"]);
-addGSet(Colonne,['largeur'],"get");
 

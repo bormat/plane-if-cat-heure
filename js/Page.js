@@ -23,7 +23,7 @@ Class.create("Page",{
 	reinitialiser:function(){
 		if(this._mode=="journalier"){
 			this._colonnes=new Tab();
-		}else{	
+		}else{
 			this._colonnes.forEach(function(colonne){
 				colonne.reinitialiserEvenement();
 			})					
@@ -39,7 +39,6 @@ Class.create("Page",{
 			largeur+=plan.getColonneHoraire().getLargeur();
 		}
 		return largeur;
-	}
-	
+	},
+	getteurEtSetteur:"mode,planning,colonnes,categories"
 })
-addGSet(Page,["mode","planning","colonnes","categories"])
